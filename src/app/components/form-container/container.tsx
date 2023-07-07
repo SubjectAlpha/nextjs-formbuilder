@@ -1,6 +1,6 @@
 import ControlTypes from "@/app/utility/ControlTypes";
 import { Types } from "../../components/sidebar/sidebar";
-import { FC } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { useDrop } from "react-dnd";
 
 export interface ContainerProps {
@@ -9,8 +9,19 @@ export interface ContainerProps {
 }
 
 const allowedTypes: string[] = [];
+const addedChildren: ReactNode[] = [];
+
+export function AddChild(child: ReactNode) {
+	addedChildren.push(child);
+}
 
 export const Container: FC<ContainerProps> = ({ allowedDropEffect, types }) => {
+	const [children, setChildren] = useState(addedChildren);
+
+	useEffect(() => {
+		// Refresh when children change
+	}, [children]);
+
 	types.forEach((t) => {
 		allowedTypes.push(t.type);
 	});
@@ -33,9 +44,9 @@ export const Container: FC<ContainerProps> = ({ allowedDropEffect, types }) => {
 	return (
 		<div
 			ref={drop}
-			className="h-full px-3 py-4 overflow-y-scroll bg-gray-10 dark:bg-gray-600"
+			className="h-full ml-64 px-3 py-4 overflow-y-scroll bg-gray-10 dark:bg-gray-600"
 		>
-			&nbsp;
+			{...children}
 		</div>
 	);
 };

@@ -16,17 +16,15 @@ ControlTypes.forEach((t, k) => {
 	});
 });
 
-console.log("Types found: ", types);
-
 export const Main: FC = () => {
 	return (
 		<DndProvider backend={HTML5Backend}>
-			<Sidebar types={types} />
 			<main
 				style={{
 					height: "100vh",
 				}}
 			>
+				<Sidebar types={types} />
 				<Container types={types} allowedDropEffect="any" />
 			</main>
 		</DndProvider>

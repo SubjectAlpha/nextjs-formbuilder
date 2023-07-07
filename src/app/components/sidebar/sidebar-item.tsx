@@ -4,6 +4,8 @@ import ControlTypes from "@/app/utility/ControlTypes";
 import { FC } from "react";
 import type { DragSourceMonitor } from "react-dnd";
 import { useDrag } from "react-dnd";
+import { TextInput } from "../controls/TextInput";
+import { AddChild } from "../form-container/container";
 
 interface ItemProps {
 	name: string;
@@ -36,7 +38,15 @@ export const SidebarItem: FC<ItemProps> = ({ name, type }) => {
 					} else {
 						alertMessage = `You cannot ${dropResult.dropEffect} an item into the ${dropResult.name}`;
 					}
-					console.log(alertMessage);
+
+					AddChild(
+						<TextInput
+							id="test"
+							placeholder="test"
+							labelText="label"
+							keyName="TestKey"
+						/>
+					);
 				}
 			},
 			collect: (monitor: DragSourceMonitor) => ({
