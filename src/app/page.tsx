@@ -19,13 +19,13 @@ ControlTypes.forEach((t, k) => {
 export const Main: FC = () => {
 	return (
 		<DndProvider backend={HTML5Backend}>
-			<main
-				style={{
-					height: "100vh",
-				}}
-			>
-				<Sidebar types={types} />
-				<Container types={types} allowedDropEffect="any" />
+			<main className="flex">
+				<Sidebar className="flex-none" types={types} />
+				<Container
+					className="h-screen w-full flex-initial w-5/6"
+					types={types}
+					allowedDropEffect="any"
+				/>
 			</main>
 		</DndProvider>
 	);

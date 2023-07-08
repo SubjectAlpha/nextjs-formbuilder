@@ -6,6 +6,7 @@ import { useDrop } from "react-dnd";
 export interface ContainerProps {
 	allowedDropEffect: string;
 	types: Types[];
+	className: string;
 }
 
 const allowedTypes: string[] = [];
@@ -15,7 +16,15 @@ export function AddChild(child: ReactNode) {
 	addedChildren.push(child);
 }
 
-export const Container: FC<ContainerProps> = ({ allowedDropEffect, types }) => {
+export function GetChildrenCount() {
+	return addedChildren.length;
+}
+
+export const Container: FC<ContainerProps> = ({
+	allowedDropEffect,
+	types,
+	className,
+}) => {
 	const [children, setChildren] = useState(addedChildren);
 
 	useEffect(() => {
@@ -44,7 +53,10 @@ export const Container: FC<ContainerProps> = ({ allowedDropEffect, types }) => {
 	return (
 		<div
 			ref={drop}
-			className="h-full ml-64 px-3 py-4 overflow-y-scroll bg-gray-10 dark:bg-gray-600"
+			className={
+				"container h-full px-3 py-4 overflow-y-scroll bg-gray-10 dark:bg-gray-600 " +
+				className
+			}
 		>
 			{...children}
 		</div>

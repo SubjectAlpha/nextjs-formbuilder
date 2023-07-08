@@ -6,7 +6,7 @@ interface InputProps {
 	labelText: string;
 }
 
-export const TextInput: FC<InputProps> = ({ id, placeholder, labelText }) => {
+export const TextArea: FC<InputProps> = ({ id, placeholder, labelText }) => {
 	return (
 		<div className="py-3">
 			<label
@@ -15,12 +15,11 @@ export const TextInput: FC<InputProps> = ({ id, placeholder, labelText }) => {
 			>
 				{labelText}
 			</label>
-			<input
+			<textarea
 				className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 				id={id}
-				type="text"
 				placeholder={placeholder}
-			></input>
+			></textarea>
 		</div>
 	);
 };

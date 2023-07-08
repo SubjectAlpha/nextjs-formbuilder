@@ -1,11 +1,12 @@
 "use client";
 
 import ControlTypes from "@/app/utility/ControlTypes";
-import { FC } from "react";
+import { FC, useState } from "react";
 import type { DragSourceMonitor } from "react-dnd";
 import { useDrag } from "react-dnd";
 import { TextInput } from "../controls/TextInput";
-import { AddChild } from "../form-container/container";
+import { AddChild, GetChildrenCount } from "../form-container/container";
+import { TextArea } from "../controls/TextArea";
 
 interface ItemProps {
 	name: string;
@@ -26,27 +27,15 @@ export const SidebarItem: FC<ItemProps> = ({ name, type }) => {
 			end(item, monitor) {
 				const dropResult = monitor.getDropResult() as DropResult;
 				if (item && dropResult) {
-					let alertMessage = "";
 					const isDropAllowed =
 						dropResult.allowedDropEffect === "any" ||
 						dropResult.allowedDropEffect === dropResult.dropEffect;
 
 					if (isDropAllowed) {
-						const isCopyAction = dropResult.dropEffect === "copy";
-						const actionName = isCopyAction ? "copied" : "moved";
-						alertMessage = `You ${actionName} ${item.name} into ${dropResult.name}!`;
+						placeComponent(type);
 					} else {
-						alertMessage = `You cannot ${dropResult.dropEffect} an item into the ${dropResult.name}`;
+						alert("Drop failed");
 					}
-
-					AddChild(
-						<TextInput
-							id="test"
-							placeholder="test"
-							labelText="label"
-							keyName="TestKey"
-						/>
-					);
 				}
 			},
 			collect: (monitor: DragSourceMonitor) => ({
@@ -60,12 +49,37 @@ export const SidebarItem: FC<ItemProps> = ({ name, type }) => {
 		<li>
 			<div
 				ref={drag}
-				className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+				className="flex w-full content-center p-2 text-gray-900 rounded-lg bg-gray-100 dark:bg-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 group"
 			>
-				<span className="ml-3">{name}</span>
+				<span>{name}</span>
 			</div>
 		</li>
 	);
 };
+
+function placeComponent(type: string) {
+	switch (type) {
+		case "textInput":
+			AddChild(
+				<TextInput
+					id="test"
+					placeholder="test"
+					labelText="label"
+					key={"userAddedComponent-" + GetChildrenCount()}
+				/>
+			);
+			break;
+		case "textArea":
+			AddChild(
+				<TextArea
+					id="test"
+					placeholder="test"
+					labelText="label"
+					key={"userAddedComponent-" + GetChildrenCount()}
+				/>
+			);
+			break;
+	}
+}
 
 export default SidebarItem;
