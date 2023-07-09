@@ -22,7 +22,7 @@ export const Main: FC = () => {
 			<main className="flex">
 				<Sidebar className="flex-none" types={types} />
 				<Container
-					className="h-screen w-full flex-initial w-5/6"
+					className="h-screen w-full flex-initial w-5/6 border-8 border-black-800"
 					types={types}
 					allowedDropEffect="any"
 				/>
